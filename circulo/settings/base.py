@@ -20,6 +20,8 @@ INSTALLED_APPS = [
 
     "rest_framework",
     "drf_yasg",
+
+    "youtube_videos",
 ]
 
 MIDDLEWARE = [

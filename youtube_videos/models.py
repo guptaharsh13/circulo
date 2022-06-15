@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class YoutubeVideo(models.Model):
+class YouTubeVideo(models.Model):
 
     video_title = models.CharField(max_length=255)
     video_description = models.TextField()

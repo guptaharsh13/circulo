@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import YoutubeVideo
+from .models import YouTubeVideo
 
 
-class YoutubeVideoAdmin(admin.ModelAdmin):
+class YouTubeVideoAdmin(admin.ModelAdmin):
     list_display = ("id", "video_title", "published_on",
                     "created_on", "updated")
     list_display_links = ("id", "video_title")
@@ -11,4 +11,4 @@ class YoutubeVideoAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(YoutubeVideo, YoutubeVideoAdmin)
+admin.site.register(YouTubeVideo, YouTubeVideoAdmin)

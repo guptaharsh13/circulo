@@ -6,6 +6,8 @@ __pycache__
 /static/
 /media/
 /venv/
+celerybeat-schedule
 
 *.pyc
 *.log
+*.rdb

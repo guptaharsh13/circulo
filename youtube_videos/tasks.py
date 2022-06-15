@@ -1,9 +1,8 @@
 from celery import shared_task
-import time
+from .utils import useAPIKeys
 
 
 @shared_task(bind=True)
 def fetchYouTubeVideos(self):
-    time.sleep(5)
-    print("Have called the YouTube API")
-    return "done"
+    count = useAPIKeys()
+    return f"{count} videos added to the database"

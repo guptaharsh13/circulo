@@ -104,3 +104,9 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 QUERY = "football"
 INTERVAL = 10
 THRESHOLD = 15
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'youtube_videos': '65/min',
+    }
+}

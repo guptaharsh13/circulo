@@ -87,7 +87,7 @@ def saveVideos(videos_json):
     return count
 
 
-def fetchYouTubeVideos():
+def useAPIKeys():
 
     api_keys = env("API_KEYS")
     api_keys = api_keys.replace(" ", "").split(",")

@@ -25,7 +25,7 @@ app.config_from_object(settings, namespace="CELERY")
 app.conf.beat_schedule = {
     "fetch_youtube_videos": {
         "task": "youtube_videos.tasks.fetchYouTubeVideos",
-        "schedule": timedelta(seconds=10)
+        "schedule": timedelta(seconds=settings.INTERVAL)
     }
 }
 

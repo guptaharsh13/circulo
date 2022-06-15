@@ -10,20 +10,19 @@ class YouTubeVideo(models.Model):
     video_description = models.TextField()
     published_on = models.DateTimeField()
 
-    # to track the time when the entry is created in the database
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return f"{self.video_title} | {self.published_on}"
 
+    class Meta:
+        ordering = ("-published_on",)
+
 
 class APICall(models.Model):
-    date_time = models.DateTimeField(default=datetime.now)
-    number_of_videos = models.PositiveBigIntegerField(default=0)
+    made_on = models.DateTimeField(auto_now_add=True)
+    number_of_videos = models.PositiveIntegerField(default=0)
 
     def __str__(self) -> str:
-        return f"{self.date_time} | {self.number_of_videos}"
+        return f"{self.made_on} | {self.number_of_videos}"
 
     class Meta:
-        ordering = ("-date_time",)
+        ordering = ("-made_on",)

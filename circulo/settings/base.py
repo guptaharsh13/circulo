@@ -100,3 +100,7 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Asia/Kolkata"
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+
+QUERY = "football"
+INTERVAL = 10
+THRESHOLD = 15

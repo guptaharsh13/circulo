@@ -102,7 +102,7 @@ CELERY_RESULT_BACKEND = "django-db"
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 QUERY = "football"
-INTERVAL = 10
+INTERVAL = 15
 THRESHOLD = 15
 
 REST_FRAMEWORK = {

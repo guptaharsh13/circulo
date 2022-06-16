@@ -104,6 +104,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 QUERY = "football"
 INTERVAL = 15
 THRESHOLD = 15
+WAIT_TIME = 5*60  # 5 minutes
 
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {

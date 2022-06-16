@@ -1,9 +1,5 @@
-import json
-import os
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from elasticsearch_dsl import connections
-import django_filters.rest_framework
 from .models import YouTubeVideo
 from .serializers import YouTubeVideoSerializer
 from .doc_type import YouTubeVideoDoc

@@ -1,8 +1,6 @@
-import time
-import os
 from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
-from elasticsearch_dsl import Search, Index, connections
+from django.core.management.base import BaseCommand
+from elasticsearch_dsl import Index
 from elasticsearch.helpers import bulk
 from elasticsearch import Elasticsearch
 from youtube_videos.models import YouTubeVideo

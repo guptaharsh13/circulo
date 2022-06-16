@@ -17,13 +17,12 @@ environ.Env.read_env(env_file=os.path.join(path, ".env"))
 def parseItem(item):
     snippet = item.get("snippet")
     published_on = snippet.get("publishedAt")
-
-    # There may be surrogate characters in the title of the YouTube video, and would throw an error due to utf-8 encoding
-    # Thus, I have ignored surrogate characters
-
     video_title = snippet.get("title")
     video_title = video_title.encode(
         "utf-8", "ignore").decode("utf-8", "surrogateescape")
+
+    # because 'utf-8' codec can't encode characters: surrogates not allowed
+    # Thus, I have ignored surrogate characters
 
     return {
         "video_id": item.get("id").get("videoId"),
@@ -46,7 +45,8 @@ def makeRequest(query=settings.QUERY, published_after=None, page_token=None, api
         return
 
     if not published_after:
-        published_after = f"{(datetime.now(timezone.utc) - timedelta(seconds=settings.INTERVAL)).isoformat('T').replace('+00:00', '')}Z"
+        # published_after = f"{(datetime.now(timezone.utc) - timedelta(seconds=settings.INTERVAL)).isoformat('T').replace('+00:00', '')}Z"
+        published_after = "2022-06-16T09:04:54.943341Z"
 
     params = {"part": "snippet",
               "maxResults": 50,

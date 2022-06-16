@@ -17,8 +17,10 @@ def parseItem(item):
     snippet = item.get("snippet")
     published_on = snippet.get("publishedAt")
     return {
+        "video_id": item.get("id").get("videoId"),
         "video_title": snippet.get("title"),
         "video_description": snippet.get("description"),
+        "thumbnail_url": snippet.get("thumbnails").get("default").get("url"),
         "published_on": datetime.strptime(published_on, "%Y-%m-%dT%H:%M:%SZ")
     }
 
@@ -54,20 +56,21 @@ def makeRequest(query=settings.QUERY, published_after=None, page_token=None, api
 
     if response.status_code == 403:
         print("invalid API key or unauthorized or quota exceeded on API key, use next API key, otherwise return")
-        return None
+        return
 
     if not response.status_code == 200:
         print("unable to make a successful request")
-        print(response.content.decode())
-        return None
+        return
 
-    if not eval(response.content.decode()).get("nextToken"):
+    next_token = eval(response.content.decode()).get("nextPageToken")
+
+    if not next_token:
         return parseResponse(response=response)
 
     temp_response = makeRequest(
-        query=query, published_after=published_after, page_token=page_token)
+        query=query, published_after=published_after, page_token=next_token, api_key=api_key)
 
-    return parseResponse(response=response) + parseResponse(response=temp_response)
+    return parseResponse(response=response) + temp_response
 
 
 def saveVideos(videos_json):

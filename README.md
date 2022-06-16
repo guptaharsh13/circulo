@@ -33,7 +33,7 @@ cd circulo
 
 ### Run
 
-### Environment Variables
+#### Environment Variables
 
 ```shell
 touch .env
@@ -62,13 +62,13 @@ celery -A circulo beat -l INFO
 
 ### Docker Run
 
-### Environment Variables
+#### Environment Variables
 
 ```shell
 touch .env
 ```
 
-**For running this project successfully you'll need to create a `.env` file and store your firebase credentials there like [`.env.sample`](https://github.com/guptaharsh13/circulo/tree/master/.env.sample.docker).**
+**For running this project successfully you'll need to create a `.env` file and store your firebase credentials there like [`.env.sample.docker`](https://github.com/guptaharsh13/circulo/tree/master/.env.sample.docker).**
 
 ```shell
 docker-compose up --build
@@ -86,7 +86,7 @@ docker-compose up --build
 
 ## Future Scope
 
-- Implement Elasticsearch
-- [My current progress](https://github.com/guptaharsh13/circulo/tree/feat-%2322) (not complete)
+- Build a TUI
+- [Implement Elasticsearch](https://github.com/guptaharsh13/circulo/tree/feat-%2322)
 
 <p align="center">Made with ❤ by Harsh Gupta</p>

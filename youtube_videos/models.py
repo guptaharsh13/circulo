@@ -1,5 +1,6 @@
+import django
 from django.db import models
-from datetime import datetime
+from django.contrib.postgres.indexes import BrinIndex
 
 # Create your models here.
 
@@ -15,6 +16,9 @@ class YouTubeVideo(models.Model):
 
     class Meta:
         ordering = ("-published_on",)
+        indexes = (
+            BrinIndex(fields=("published_on",)),
+        )
 
 
 class APICall(models.Model):
@@ -26,3 +30,6 @@ class APICall(models.Model):
 
     class Meta:
         ordering = ("-made_on",)
+        indexes = (
+            BrinIndex(fields=("made_on",)),
+        )

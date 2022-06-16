@@ -9,7 +9,7 @@ class YouTubeVideo(models.Model):
 
     video_id = models.CharField(max_length=12)
     video_title = models.CharField(max_length=255, db_index=True)
-    video_description = models.TextField(db_index=True)
+    video_description = models.TextField(db_index=True, blank=True)
     thumbnail_url = models.URLField()
     published_on = models.DateTimeField()
 

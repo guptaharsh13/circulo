@@ -1,5 +1,6 @@
 import requests
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone, timedelta
+from django.utils.timezone import utc
 from django.conf import settings
 from .models import YouTubeVideo, APICall
 import os
@@ -16,12 +17,22 @@ environ.Env.read_env(env_file=os.path.join(path, ".env"))
 def parseItem(item):
     snippet = item.get("snippet")
     published_on = snippet.get("publishedAt")
+
+    # There may be surrogate characters in the title of the YouTube video, and would throw an error due to utf-8 encoding
+    # Thus, I have ignored surrogate characters
+
+    video_title = snippet.get("title")
+    video_title = video_title.encode(
+        "utf-8", "ignore").decode("utf-8", "surrogateescape")
+
     return {
         "video_id": item.get("id").get("videoId"),
-        "video_title": snippet.get("title"),
+        "video_title": video_title,
         "video_description": snippet.get("description"),
         "thumbnail_url": snippet.get("thumbnails").get("default").get("url"),
-        "published_on": datetime.strptime(published_on, "%Y-%m-%dT%H:%M:%SZ")
+
+        # Django uses time-zone-aware datetime objects. Thus, we are performing this conversion
+        "published_on": datetime.strptime(published_on, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=utc)
     }
 
 

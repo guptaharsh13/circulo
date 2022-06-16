@@ -9,5 +9,5 @@ router.register(prefix="", viewset=YouTubeVideoView, basename="youtube_videos")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("elastic", YouTubeVideoSearchView.as_view(), name="elastic_search")
+    path("search", YouTubeVideoSearchView.as_view(), name="youtube_videos_search")
 ]

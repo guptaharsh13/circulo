@@ -112,3 +112,6 @@ REST_FRAMEWORK = {
         'youtube_videos': '65/min',
     }
 }
+
+ES_HOST = env('ES_HOST')
+ES_PORT = env('ES_PORT')

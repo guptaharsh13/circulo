@@ -11,4 +11,5 @@ RUN apk del .tmp-build-deps
 
 RUN mkdir /app
 WORKDIR /app
+RUN pwd
 COPY . /app

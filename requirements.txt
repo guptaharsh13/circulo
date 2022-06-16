@@ -22,8 +22,11 @@ django-filter==21.1
 django-timezone-field==5.0
 djangorestframework==3.13.1
 drf-yasg==1.20.0
+elasticsearch==6.8.2
+elasticsearch-dsl==6.1.0
 idna==3.3
 inflection==0.5.1
+ipaddress==1.0.23
 itypes==1.2.0
 Jinja2==3.1.2
 kombu==5.2.4

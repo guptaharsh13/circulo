@@ -16,6 +16,7 @@ services:
              python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
+      - elastic
 
   db:
     image: postgres:14-alpine
@@ -57,5 +58,13 @@ services:
       - db
       - redis
       - app
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    expose:
+      - "9200"
+      - "9300"
 volumes:
   pgdata:

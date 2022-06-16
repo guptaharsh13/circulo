@@ -76,6 +76,8 @@ docker-compose up --build
 
 ## API Documentation
 
+Once you have launched the app locally, you can access the documentation using the below localhost links
+
 - [Swagger](http://localhost:8000/swagger/)
 - [Redoc](http://localhost:8000/redoc/)
 

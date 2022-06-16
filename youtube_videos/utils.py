@@ -5,6 +5,7 @@ from .models import YouTubeVideo, APICall
 import os
 import environ
 from pathlib import Path
+import pytz
 
 
 path = Path(__file__).resolve().parent.parent
@@ -97,11 +98,13 @@ def useAPIKeys():
 
     if api_calls.exists():
 
-        if api_calls[0].number_of_videos < settings.THRESHOLD:
+        made_on = api_calls[0].made_on
+        number_of_videos = api_calls[0].number_of_videos
+
+        if number_of_videos < settings.THRESHOLD and (datetime.now(pytz.timezone("Asia/Kolkata")) - made_on).seconds < settings.WAIT_TIME:
             print("skipped")
             return 0
 
-        made_on = api_calls[0].made_on
         published_after = f"{made_on.isoformat('T').replace('+00:00', '')}Z"
 
     for api_key in api_keys:

@@ -5,7 +5,7 @@ from .models import YouTubeVideo, APICall
 import os
 import environ
 from pathlib import Path
-import pytz
+from django_celery_beat.models import PeriodicTask
 
 
 path = Path(__file__).resolve().parent.parent
@@ -77,18 +77,26 @@ def saveVideos(videos_json):
 
     count = 0
 
-    if not videos_json:
-        APICall.objects.create()
-        return count
-
     videos = []
     for video in videos_json:
         count += 1
         videos.append(YouTubeVideo(**video))
 
     YouTubeVideo.objects.bulk_create(videos)
-    APICall.objects.create(number_of_videos=count)
     return count
+
+
+def updateInterval(factor):
+    task = PeriodicTask.objects.filter(name="fetch_youtube_videos")
+    if not task.exists():
+        return False
+    task = task.first()
+    interval = task.interval
+    value = min(settings.MAX_INTERVAL, interval.every * factor)
+    value = max(settings.MIN_INTERVAL, value)
+    interval.every = value
+    interval.save()
+    return True
 
 
 def useAPIKeys():
@@ -100,20 +108,21 @@ def useAPIKeys():
     published_after = None
 
     if api_calls.exists():
-
         made_on = api_calls[0].made_on
-        number_of_videos = api_calls[0].number_of_videos
-
-        if number_of_videos < settings.THRESHOLD and (datetime.now(pytz.timezone("Asia/Kolkata")) - made_on).seconds < settings.WAIT_TIME:
-            print("skipped")
-            return 0
-
         published_after = f"{made_on.isoformat('T').replace('+00:00', '')}Z"
 
+    count = 0
     for api_key in api_keys:
         videos = makeRequest(published_after=published_after, api_key=api_key)
         if videos is None:
             continue
-        return saveVideos(videos_json=videos)
+        count = saveVideos(videos_json=videos)
 
-    return 0
+    APICall.objects.create(number_of_videos=count)
+
+    factor = settings.MULTIPLICATION_FACTOR
+    if count > settings.THRESHOLD:
+        factor = 1/settings.MULTIPLICATION_FACTOR
+
+    updateInterval(factor=factor)
+    return count

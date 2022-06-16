@@ -103,12 +103,16 @@ CELERY_RESULT_BACKEND = "django-db"
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 QUERY = "football"
-INTERVAL = 15
+MIN_INTERVAL = 5
+INTERVAL = 10
+MAX_INTERVAL = 60*60
 THRESHOLD = 15
-WAIT_TIME = 5*60  # 5 minutes
+MULTIPLICATION_FACTOR = 2
 
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'youtube_videos': '65/min',
     }
 }
+
+DEFAULT_FROM_EMAIL = "hg242322@gmail.com"
